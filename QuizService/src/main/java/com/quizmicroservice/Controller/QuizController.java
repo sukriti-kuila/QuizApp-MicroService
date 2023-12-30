@@ -10,30 +10,41 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import com.quizmicroservice.Entities.Quiz;
-import com.quizmicroservice.Services.QuizService;
+import com.quizmicroservice.Services.*;
 
 @RestController
 @RequestMapping("/quiz")
 public class QuizController {
 	@Autowired
-	QuizService quizservice;
+	private QuizService quizservice;
+	@Autowired
+	private QuestionClient questionclient;
 	
 	@PostMapping
 	public Quiz create(@RequestBody Quiz q) {
-//		System.out.println(q);
 		return quizservice.add(q);
 	}
 	
 	@GetMapping
 	public List<Quiz> getAll() {
-		return quizservice.get();
+		List<Quiz> quizzes = quizservice.get();
+		List<Quiz> newQuizzes = quizzes.stream()
+				.map(quiz->{
+					quiz.setQuestions(questionclient.getQuesOfAQuiz(quiz.getId()));
+					return quiz;
+				})
+				.collect(Collectors.toList()); 
+		return newQuizzes;
 	}
 	
 	@GetMapping("/{id}")
-	public Quiz getAQuiz(@PathVariable Long id) {
-		return quizservice.get(id);
+	public Quiz getOneQuiz(@PathVariable Long id) {
+		Quiz q = quizservice.get(id);
+		q.setQuestions(questionclient.getQuesOfAQuiz(q.getId()));
+		return q;
 	}
 	
 	@DeleteMapping("/delete/{id}")

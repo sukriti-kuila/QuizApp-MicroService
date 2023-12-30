@@ -19,12 +19,13 @@ import com.questionmicroservice.Service.QuestionService;
 public class QuestionController {
 	@Autowired
 	private QuestionService quesservice;
+	
 	@PostMapping
 	public Question create(@RequestBody Question q) {
 		System.out.println(q);
 		return quesservice.create(q);
 	}
-	
+	//GET all quiz
 	@GetMapping
 	public List<Question> getAll() {
 		return quesservice.getAll();
