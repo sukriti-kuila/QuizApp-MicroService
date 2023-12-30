@@ -39,4 +39,9 @@ public class QuestionController {
 	public String deleteOne(@PathVariable Long id) {
 		return quesservice.delete(id);
 	}
+	
+	@GetMapping("/quiz/{quizid}")
+	public List<Question> getQuesOfAQuiz(@PathVariable Long quizid) {
+		return quesservice.getQuesOfAQuiz(quizid);
+	}
 }

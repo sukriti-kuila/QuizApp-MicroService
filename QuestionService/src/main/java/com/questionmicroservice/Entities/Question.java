@@ -11,6 +11,7 @@ public class Question {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long qid;
 	private String question;
+	private Long quizId;
 	
 	public Long getQid() {
 		return qid;
@@ -24,21 +25,29 @@ public class Question {
 	public void setQuestion(String question) {
 		this.question = question;
 	}
-	public Question (String question) {
-		this.question = question;
+
+	public Long getQuizId() {
+		return quizId;
 	}
-	public Question (Long qid, String question) {
+	public void setQuizId(Long quizid) {
+		this.quizId = quizid;
+	}
+	
+	public Question (Long qid, String question, Long quizid) {
 		this.qid = qid;
 		this.question = question;
+		this.quizId = quizid;
 	}
+	
 	
 	public Question () {
 		
 	}
-	
 	@Override
 	public String toString() {
-		return "Question [qid=" + qid + ", question=" + question + "]";
+		return "Question [qid=" + qid + ", question=" + question + ", quizid=" + quizId + "]";
 	}
+	
+	
 	
 }

@@ -32,5 +32,10 @@ public class QuestionImpl implements QuestionService{
 		quesrepo.deleteById(id);
 		return "Question with id "+id+" has been deleted";
 	}
+
+	@Override
+	public List<Question> getQuesOfAQuiz(Long quizid) {
+		return quesrepo.findByQuizId(quizid);
+	}
 	
 }

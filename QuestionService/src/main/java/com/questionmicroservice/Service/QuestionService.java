@@ -8,5 +8,6 @@ public interface QuestionService {
 	public List<Question> getAll();
 	public Question getOne(Long id);
 	public String delete(Long id);
+	public List<Question> getQuesOfAQuiz(Long quizid);
 	
 }
